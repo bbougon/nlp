@@ -7,7 +7,7 @@ import fr.bbougon.nlp.domain.NLPEntity;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class IBMEntitiesAnalyze implements EntitiesAnalyze {
+public class IBMEntitiesAnalyze implements EntitiesAnalyze {
 
     IBMEntitiesAnalyze(final AnalysisResults analysisResults) {
         this.analysisResults = analysisResults;

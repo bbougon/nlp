@@ -17,8 +17,11 @@ import java.util.List;
 
 public class NaturalLanguageUnderstandingForTests extends NaturalLanguageUnderstanding {
 
-    NaturalLanguageUnderstandingForTests() {
-        super("2018-10-01");
+    NaturalLanguageUnderstandingForTests(final List<EntitiesResult> entitiesResults, final List<CategoriesResult> categoriesResults, final List<ConceptsResult> conceptsResults) {
+        super("2018-09-21");
+        this.entitiesResults = entitiesResults;
+        this.categoriesResults = categoriesResults;
+        this.conceptsResults = conceptsResults;
     }
 
     @Override
@@ -37,16 +40,7 @@ public class NaturalLanguageUnderstandingForTests extends NaturalLanguageUnderst
                         if (analyzeOptions.features().entities() == null) {
                             return Lists.newArrayList();
                         }
-                        return Lists.newArrayList(new EntitiesResultBuilderFortTest()
-                                        .withText("43")
-                                        .withType("Number")
-                                        .withRelevance(0.9646787)
-                                        .build(),
-                                new EntitiesResultBuilderFortTest()
-                                        .withText("minelli")
-                                        .withType("Person")
-                                        .withRelevance(0.213245)
-                                        .build());
+                        return entitiesResults;
                     }
 
                     @Override
@@ -59,17 +53,7 @@ public class NaturalLanguageUnderstandingForTests extends NaturalLanguageUnderst
                         if (analyzeOptions.features().categories() == null) {
                             return Lists.newArrayList();
                         }
-                        return Lists.newArrayList(new CategoriesResultBuilderForTest()
-                                        .withLabel("/style and fashion/footwear/shoes")
-                                        .withScore(0.984345)
-                                        .build(),
-                                new CategoriesResultBuilderForTest()
-                                        .withLabel("/style and fashion/accessories/socks")
-                                        .withScore(0.0772656)
-                                        .build(),
-                                new CategoriesResultBuilderForTest().withLabel("/business and industrial/advertising and marketing/brand management")
-                                        .withScore(0.39)
-                                        .build());
+                        return categoriesResults;
                     }
 
                     @Override
@@ -77,21 +61,7 @@ public class NaturalLanguageUnderstandingForTests extends NaturalLanguageUnderst
                         if (analyzeOptions.features().concepts() == null) {
                             return Lists.newArrayList();
                         }
-                        return Lists.newArrayList(new ConceptsResultBuilderForTest()
-                                        .withText("Chaussure")
-                                        .withRelevance(0.967468)
-                                        .withDbpediaResource("http://fr.dbpedia.org/resource/Chaussure")
-                                        .build(),
-                                new ConceptsResultBuilderForTest()
-                                        .withText("Cuir")
-                                        .withRelevance(0.964209)
-                                        .withDbpediaResource("http://fr.dbpedia.org/resource/Cuir")
-                                        .build(),
-                                new ConceptsResultBuilderForTest()
-                                        .withText("Pointures et tailles en habillement")
-                                        .withRelevance(0.917293)
-                                        .withDbpediaResource("http://fr.dbpedia.org/resource/Pointures_et_tailles_en_habillement")
-                                        .build());
+                        return conceptsResults;
                     }
                 };
             }
@@ -122,4 +92,8 @@ public class NaturalLanguageUnderstandingForTests extends NaturalLanguageUnderst
             }
         };
     }
+
+    private List<EntitiesResult> entitiesResults;
+    private List<CategoriesResult> categoriesResults;
+    private List<ConceptsResult> conceptsResults;
 }

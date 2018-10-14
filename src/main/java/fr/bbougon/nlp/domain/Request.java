@@ -2,7 +2,7 @@ package fr.bbougon.nlp.domain;
 
 public class Request {
 
-    Request(final NLPClient client) {
+    public Request(final NLPClient client) {
         this.client = client;
     }
 

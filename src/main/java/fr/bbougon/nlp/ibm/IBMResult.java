@@ -1,8 +1,8 @@
 package fr.bbougon.nlp.ibm;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
-import fr.bbougon.nlp.domain.Concept;
 import fr.bbougon.nlp.domain.Category;
+import fr.bbougon.nlp.domain.Concept;
 import fr.bbougon.nlp.domain.EntitiesAnalyze;
 import fr.bbougon.nlp.domain.Result;
 
