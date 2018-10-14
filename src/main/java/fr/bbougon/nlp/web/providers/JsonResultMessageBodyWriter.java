@@ -1,7 +1,6 @@
 package fr.bbougon.nlp.web.providers;
 
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import fr.bbougon.nlp.domain.Result;
 import fr.bbougon.nlp.web.providers.mappers.json.ResultMapper;
 
@@ -23,7 +22,11 @@ public class JsonResultMessageBodyWriter implements MessageBodyWriter<Result> {
 
     @Override
     public boolean isWriteable(final Class<?> type, final Type genericType, final Annotation[] annotations, final MediaType mediaType) {
-        return Arrays.stream(type.getInterfaces()).anyMatch(aClass -> aClass == Result.class);
+        return hasResultInterface(type);
+    }
+
+    private boolean hasResultInterface(final Class<?> type) {
+        return Arrays.stream(type.getInterfaces()).anyMatch(aClass -> aClass == Result.class || hasResultInterface(aClass));
     }
 
     @Override
@@ -33,9 +36,11 @@ public class JsonResultMessageBodyWriter implements MessageBodyWriter<Result> {
 
     @Override
     public void writeTo(final Result result, final Class<?> type, final Type genericType, final Annotation[] annotations, final MediaType mediaType, final MultivaluedMap<String, Object> httpHeaders, final OutputStream entityStream) throws IOException, WebApplicationException {
-        JsonObject jsonObject = new ResultMapper().map(result);
-        String toJson = new GsonBuilder().setPrettyPrinting().create().toJson(jsonObject);
-        entityStream.write(toJson.getBytes());
+        entityStream.write(new GsonBuilder()
+                .setPrettyPrinting()
+                .create()
+                .toJson(new ResultMapper().map(result))
+                .getBytes());
     }
 
 }
