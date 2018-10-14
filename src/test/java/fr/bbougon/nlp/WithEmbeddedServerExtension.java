@@ -14,7 +14,7 @@ public class WithEmbeddedServerExtension implements AfterEachCallback, BeforeEac
     private void start() {
         Configuration.ServerConfiguration configuration = Configuration.getServerConfiguration();
         server = new UndertowJaxrsServer();
-        server.deploy(new OuSontMesAffairesNLPApplicationForTests());
+        server.deploy(new NLPApplicationForTests());
         Undertow.Builder serverConfiguration = Undertow.builder().addHttpListener(configuration.getSettings().getPort(), "localhost");
         server.start(serverConfiguration);
     }

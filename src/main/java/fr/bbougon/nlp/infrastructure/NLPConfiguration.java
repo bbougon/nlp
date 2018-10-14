@@ -5,7 +5,7 @@ import fr.bbougon.nlp.Configuration;
 import fr.bbougon.nlp.infrastructure.module.NLPClientModule;
 import fr.bbougon.nlp.repositories.FileRepositories;
 
-public class OuSontMesAffairesNLPConfiguration extends AbstractModule {
+public class NLPConfiguration extends AbstractModule {
 
     @Override
     protected void configure() {

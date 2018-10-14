@@ -3,7 +3,7 @@ package fr.bbougon.nlp;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
-import fr.bbougon.nlp.infrastructure.OuSontMesAffairesNLPConfiguration;
+import fr.bbougon.nlp.infrastructure.NLPConfiguration;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ScanResult;
@@ -17,14 +17,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @ApplicationPath("/")
-public class OuSontMesAffairesNLPApplication extends Application {
+public class NLPApplication extends Application {
 
-    OuSontMesAffairesNLPApplication() {
+    NLPApplication() {
         injector = Guice.createInjector(Stage.DEVELOPMENT, getConfiguration());
     }
 
-    OuSontMesAffairesNLPConfiguration getConfiguration() {
-        return new OuSontMesAffairesNLPConfiguration();
+    NLPConfiguration getConfiguration() {
+        return new NLPConfiguration();
     }
 
     @Override

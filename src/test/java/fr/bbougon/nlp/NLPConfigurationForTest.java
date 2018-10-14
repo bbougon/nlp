@@ -1,9 +1,9 @@
 package fr.bbougon.nlp;
 
 import fr.bbougon.nlp.domain.NLPClient;
-import fr.bbougon.nlp.infrastructure.OuSontMesAffairesNLPConfiguration;
+import fr.bbougon.nlp.infrastructure.NLPConfiguration;
 
-class OuSontMesAffairesNLPConfigurationForTest extends OuSontMesAffairesNLPConfiguration {
+class NLPConfigurationForTest extends NLPConfiguration {
 
     @Override
     protected void configure() {

@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         Configuration.ServerConfiguration serverConfiguration = Configuration.getServerConfiguration();
         UndertowJaxrsServer server = new UndertowJaxrsServer();
-        server.deploy(new OuSontMesAffairesNLPApplication());
+        server.deploy(new NLPApplication());
         server.start(serverConfiguration.getSettings().getBuilder());
         LoggerFactory.getLogger(Main.class).info("Server started successfully on host 'localhost' and port {}", serverConfiguration.getSettings().getPort());
     }
