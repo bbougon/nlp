@@ -142,7 +142,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>fr.bbougon.ousontmesaffaires.nlp.Main</mainClass>
+                            <mainClass>fr.bbougon.nlp.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -157,7 +157,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>fr.bbougon.ousontmesaffaires.nlp.Main</mainClass>
+                            <mainClass>fr.bbougon.nlp.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -184,7 +184,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>fr.bbougon.ousontmesaffaires.nlp.Main</mainClass>
+                    <mainClass>fr.bbougon.nlp.Main</mainClass>
                 </configuration>
             </plugin>
 
