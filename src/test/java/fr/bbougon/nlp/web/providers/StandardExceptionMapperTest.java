@@ -1,4 +1,4 @@
-package fr.bbougon.nlp.web.mappers;
+package fr.bbougon.nlp.web.providers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ class StandardExceptionMapperTest {
 
     @Test
     @DisplayName("it returns a bad request if exception is a WebApplicationException")
-    public void handleWebApplicationException() {
+    void handleWebApplicationException() {
         StandardExceptionMapper standardExceptionMapper = new StandardExceptionMapper();
 
         Response response = standardExceptionMapper.toResponse(new BadRequestException());

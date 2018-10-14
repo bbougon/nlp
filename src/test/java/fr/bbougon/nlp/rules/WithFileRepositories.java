@@ -4,11 +4,13 @@ import fr.bbougon.nlp.Configuration;
 import fr.bbougon.nlp.repositories.FileRepositories;
 import fr.bbougon.nlp.repositories.FileRepository;
 import io.undertow.Undertow;
-import org.junit.jupiter.api.extension.Extension;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
-public class WithFileRepositories implements Extension {
+public class WithFileRepositories implements BeforeEachCallback {
 
-    public WithFileRepositories() {
+    @Override
+    public void beforeEach(final ExtensionContext extensionContext) {
         FileRepositories.initialise(new FileRepositories() {
             @Override
             public FileRepository<Configuration.ServerConfiguration> getServerConfiguration() {

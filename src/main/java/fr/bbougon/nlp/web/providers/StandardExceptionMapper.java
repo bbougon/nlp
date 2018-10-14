@@ -1,4 +1,4 @@
-package fr.bbougon.nlp.web.mappers;
+package fr.bbougon.nlp.web.providers;
 
 import com.google.common.collect.Lists;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class StandardExceptionMapper implements ExceptionMapper<Throwable> {
             return ((WebApplicationException) throwable).getResponse();
         }
         StringBuilder messageBuilder = new StringBuilder();
-        String packageName = "fr.bbougon.ousontmesaffaires.nlp.web.ressources";
+        String packageName = "fr.bbougon.nlp.web.ressources";
         Lists.newArrayList(throwable.getStackTrace())
                 .stream()
                 .filter(stackTraceElement -> stackTraceElement.getClassName().contains(packageName))

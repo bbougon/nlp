@@ -39,8 +39,8 @@ public class OuSontMesAffairesNLPApplication extends Application {
     }
 
     private Set<Class<?>> scanPackages() {
-        Set<Class<?>> result = scanPackages("fr.bbougon.ousontmesaffaires.nlp.web", Path.class);
-        result.addAll(scanPackages("fr.bbougon.ousontmesaffaires.nlp.web.mappers", Provider.class));
+        Set<Class<?>> result = scanPackages("fr.bbougon.nlp.web", Path.class);
+        result.addAll(scanPackages("fr.bbougon.nlp.web.providers", Provider.class));
         return result;
     }
 
@@ -56,5 +56,5 @@ public class OuSontMesAffairesNLPApplication extends Application {
         }
     }
 
-    final Injector injector;
+    private final Injector injector;
 }
