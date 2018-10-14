@@ -24,7 +24,7 @@ public class StandardExceptionMapper implements ExceptionMapper<Throwable> {
             return ((WebApplicationException) throwable).getResponse();
         }
         StringBuilder messageBuilder = new StringBuilder();
-        String packageName = "fr.bbougon.nlp.web.ressources";
+        String packageName = "fr.bbougon.nlp.web.resources";
         Lists.newArrayList(throwable.getStackTrace())
                 .stream()
                 .filter(stackTraceElement -> stackTraceElement.getClassName().contains(packageName))
