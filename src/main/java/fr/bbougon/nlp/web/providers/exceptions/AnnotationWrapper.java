@@ -1,4 +1,4 @@
-package fr.bbougon.nlp.web.providers;
+package fr.bbougon.nlp.web.providers.exceptions;
 
 import com.google.common.collect.Lists;
 
