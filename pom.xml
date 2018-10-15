@@ -202,4 +202,26 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <build>
+                <finalName>nlp-docker</finalName>
+                <resources>
+                    <resource>
+                        <directory>${project.basedir}/src/main/package/docker/resources</directory>
+                        <includes>
+                            <include>
+                                *.properties
+                            </include>
+                            <include>
+                                logback.xml
+                            </include>
+                        </includes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
