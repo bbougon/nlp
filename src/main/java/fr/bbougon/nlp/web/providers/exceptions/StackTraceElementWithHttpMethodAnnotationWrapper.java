@@ -1,5 +1,8 @@
 package fr.bbougon.nlp.web.providers.exceptions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.ws.rs.HttpMethod;
 import java.lang.reflect.AccessibleObject;
 import java.util.Arrays;
@@ -19,7 +22,7 @@ public class StackTraceElementWithHttpMethodAnnotationWrapper extends StackTrace
                     .findFirst()
                     .ifPresent(httpMethod -> this.method = httpMethod);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.debug(e.getMessage());
         }
     }
 
@@ -28,4 +31,5 @@ public class StackTraceElementWithHttpMethodAnnotationWrapper extends StackTrace
     }
 
     private HttpMethod method;
+    private static final Logger LOGGER = LoggerFactory.getLogger(StackTraceElementWithHttpMethodAnnotationWrapper.class);
 }

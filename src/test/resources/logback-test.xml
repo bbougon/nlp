@@ -1,0 +1,11 @@
+<configuration>
+    <appender name="STDOUT" class="fr.bbougon.nlp.test.utils.TestAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

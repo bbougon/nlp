@@ -1,5 +1,8 @@
 package fr.bbougon.nlp.web.providers.exceptions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.ws.rs.Path;
 
 public class StackTraceElementWithPathWrapper {
@@ -9,7 +12,7 @@ public class StackTraceElementWithPathWrapper {
             this.stackTraceElement = stackTraceElement;
             this.path = Class.forName(stackTraceElement.getClassName()).getAnnotation(Path.class);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.debug(e.getMessage());
         }
     }
 
@@ -28,4 +31,5 @@ public class StackTraceElementWithPathWrapper {
 
     private StackTraceElement stackTraceElement;
     private Path path;
+    private static final Logger LOGGER = LoggerFactory.getLogger(StackTraceElementWithPathWrapper.class);
 }
