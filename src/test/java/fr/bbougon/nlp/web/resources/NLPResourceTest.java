@@ -25,22 +25,43 @@ class NLPResourceTest {
     @DisplayName("it sends request to nlp service and retrieve result")
     void cenGetNLP() {
         NLPResource nlpResource = new NLPResource();
-        List<EntitiesResult> entitiesResults = createEntitiesResults();
-        List<CategoriesResult> categoriesResults = createCategoriesResults();
-        List<ConceptsResult> conceptsResults = createConceptsResults();
+        List<EntitiesResult> entitiesResults = createEntitiesResults(0.213245);
+        List<CategoriesResult> categoriesResults = createCategoriesResults(0.39);
+        List<ConceptsResult> conceptsResults = createConceptsResults(0.917293);
         nlpResource.request = new Request(new IBMNLPClientBuilderForTest()
                 .withEntitiesResult(entitiesResults)
                 .withCategoriesResult(categoriesResults)
                 .withConceptsResult(conceptsResults)
                 .build());
 
-        Response response = nlpResource.processRequest("Un texte à analyser");
+        Response response = nlpResource.processRequest("{\"text\":\"Un texte à analyser\",\"minimumScore\":0.0}");
 
         assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
         assertThat(((Result)response.getEntity()).getEntitiesAnalysis().getEntities()).hasSize(2);
     }
 
-    private ArrayList<ConceptsResult> createConceptsResults() {
+    @Test
+    @DisplayName("it retrieves result greater than or equal to expected score")
+    void canGetResults() {
+        NLPResource nlpResource = new NLPResource();
+        List<EntitiesResult> entitiesResults = createEntitiesResults(0.213245);
+        List<CategoriesResult> categoriesResults = createCategoriesResults(0.39);
+        List<ConceptsResult> conceptsResults = createConceptsResults(0.9000000);
+        nlpResource.request = new Request(new IBMNLPClientBuilderForTest()
+                .withEntitiesResult(entitiesResults)
+                .withCategoriesResult(categoriesResults)
+                .withConceptsResult(conceptsResults)
+                .build());
+
+        Response response = nlpResource.processRequest("{\"text\":\"Un texte à analyser\",\"minimumScore\":0.90}");
+
+        assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+        assertThat(((Result)response.getEntity()).getEntitiesAnalysis().getEntities()).hasSize(1);
+        assertThat(((Result)response.getEntity()).getCategories()).hasSize(2);
+        assertThat(((Result)response.getEntity()).getConcepts()).hasSize(3);
+    }
+
+    private ArrayList<ConceptsResult> createConceptsResults(final double conceptRelevance) {
         return Lists.newArrayList(
                 new ConceptsResultBuilderForTest()
                         .withText("Chaussure")
@@ -54,12 +75,12 @@ class NLPResourceTest {
                         .build(),
                 new ConceptsResultBuilderForTest()
                         .withText("Pointures et tailles en habillement")
-                        .withRelevance(0.917293)
+                        .withRelevance(conceptRelevance)
                         .withDbpediaResource("http://fr.dbpedia.org/resource/Pointures_et_tailles_en_habillement")
                         .build());
     }
 
-    private ArrayList<CategoriesResult> createCategoriesResults() {
+    private ArrayList<CategoriesResult> createCategoriesResults(final double categoryScore) {
         return Lists.newArrayList(
                 new CategoriesResultBuilderForTest()
                         .withLabel("/style and fashion/footwear/shoes")
@@ -67,14 +88,14 @@ class NLPResourceTest {
                         .build(),
                 new CategoriesResultBuilderForTest()
                         .withLabel("/style and fashion/accessories/socks")
-                        .withScore(0.0772656)
+                        .withScore(0.9772656)
                         .build(),
                 new CategoriesResultBuilderForTest().withLabel("/business and industrial/advertising and marketing/brand management")
-                        .withScore(0.39)
+                        .withScore(categoryScore)
                         .build());
     }
 
-    private ArrayList<EntitiesResult> createEntitiesResults() {
+    private ArrayList<EntitiesResult> createEntitiesResults(final double entityRelevance) {
         return Lists.newArrayList(
                 new EntitiesResultBuilderFortTest()
                         .withText("43")
@@ -84,7 +105,7 @@ class NLPResourceTest {
                 new EntitiesResultBuilderFortTest()
                         .withText("minelli")
                         .withType("Person")
-                        .withRelevance(0.213245)
+                        .withRelevance(entityRelevance)
                         .build());
     }
 }

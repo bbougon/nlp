@@ -4,6 +4,7 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.An
 import fr.bbougon.nlp.domain.Category;
 import fr.bbougon.nlp.domain.Concept;
 import fr.bbougon.nlp.domain.EntitiesAnalyze;
+import fr.bbougon.nlp.domain.NLPEntity;
 import fr.bbougon.nlp.domain.Result;
 
 import java.math.BigDecimal;
@@ -13,18 +14,34 @@ import java.util.stream.Collectors;
 
 public class IBMResult implements Result {
 
-    IBMResult(final AnalysisResults analysisResults) {
+    IBMResult(final AnalysisResults analysisResults, final Double minimumScore) {
         this.analysisResults = analysisResults;
+        this.minimumScore = minimumScore;
     }
 
     @Override
     public EntitiesAnalyze getEntitiesAnalysis() {
-        return new IBMEntitiesAnalyze(analysisResults);
+        return new EntitiesAnalyze() {
+            @Override
+            public List<NLPEntity> getEntities() {
+                return analysisResults.getEntities().stream()
+                        .filter(entitiesResult -> entitiesResult.getRelevance() >= minimumScore)
+                        .map(IBMNLPEntity::new)
+                        .collect(Collectors.toList());
+            }
+
+            @Override
+            public String getLanguage() {
+                return analysisResults.getLanguage();
+            }
+
+        };
     }
 
     @Override
     public List<Category> getCategories() {
         return analysisResults.getCategories().stream()
+                .filter(categoriesResult -> categoriesResult.getScore() >= minimumScore)
                 .map(analysisResult -> new Category() {
                     @Override
                     public String getHierarchy() {
@@ -42,6 +59,7 @@ public class IBMResult implements Result {
     @Override
     public List<Concept> getConcepts() {
         return analysisResults.getConcepts().stream()
+                .filter(conceptsResult -> conceptsResult.getRelevance() >= minimumScore)
                 .map(conceptsResult -> new Concept() {
                     @Override
                     public String getName() {
@@ -57,5 +75,6 @@ public class IBMResult implements Result {
     }
 
     private final AnalysisResults analysisResults;
+    private Double minimumScore;
 }
 

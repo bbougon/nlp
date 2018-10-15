@@ -8,6 +8,7 @@ import fr.bbougon.nlp.ibm.CategoriesResultBuilderForTest;
 import fr.bbougon.nlp.ibm.ConceptsResultBuilderForTest;
 import fr.bbougon.nlp.ibm.EntitiesResultBuilderFortTest;
 import fr.bbougon.nlp.ibm.IBMNLPClientBuilderForTest;
+import fr.bbougon.nlp.web.resources.TextToAnalyse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ class RequestTest {
                 .withEntitiesResult(createEntitiesResults())
                 .withCategoriesResult(createCategoriesResults())
                 .withConceptsResult(createConceptsResults())
-                .build()).send("Paire de chaussure pointure 43 en cuir noir de marque minelli");
+                .build()).send(new TextToAnalyse("Paire de chaussure pointure 43 en cuir noir de marque minelli", BigDecimal.ZERO));
 
         assertThat(result.getEntitiesAnalysis()).isNotNull();
         assertThat(result.getEntitiesAnalysis().getEntities()).hasSize(2);

@@ -1,6 +1,7 @@
 package fr.bbougon.nlp.domain;
 
 import com.google.inject.Inject;
+import fr.bbougon.nlp.web.resources.TextToAnalyse;
 
 public class Request {
 
@@ -9,8 +10,8 @@ public class Request {
         this.client = client;
     }
 
-    public Result send(final String text) {
-        return client.processRequest(text);
+    public Result send(final TextToAnalyse textToAnalyse) {
+        return client.processRequest(textToAnalyse);
     }
 
     private final NLPClient client;

@@ -10,6 +10,7 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Fe
 import fr.bbougon.nlp.domain.NLPClient;
 import fr.bbougon.nlp.domain.NLPSettings;
 import fr.bbougon.nlp.domain.Result;
+import fr.bbougon.nlp.web.resources.TextToAnalyse;
 
 public class IBMNLPClient implements NLPClient {
 
@@ -24,8 +25,8 @@ public class IBMNLPClient implements NLPClient {
     }
 
     @Override
-    public Result processRequest(final String text) {
-        return new IBMResult(naturalLanguageUnderstanding.analyze(buildParameters(text)).execute());
+    public Result processRequest(final TextToAnalyse textToAnalyse) {
+        return new IBMResult(naturalLanguageUnderstanding.analyze(buildParameters(textToAnalyse.text)).execute(), textToAnalyse.minimumScore);
     }
 
     private AnalyzeOptions buildParameters(final String text) {

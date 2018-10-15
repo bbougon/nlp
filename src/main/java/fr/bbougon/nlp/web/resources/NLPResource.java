@@ -1,5 +1,6 @@
 package fr.bbougon.nlp.web.resources;
 
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import fr.bbougon.nlp.domain.Request;
 import fr.bbougon.nlp.domain.Result;
@@ -13,7 +14,7 @@ public class NLPResource {
 
     @POST
     public Response processRequest(final String textToAnalyse) {
-        Result result = request.send(textToAnalyse);
+        Result result = request.send(new Gson().fromJson(textToAnalyse, TextToAnalyse.class));
         return Response.ok().entity(result).build();
     }
 
