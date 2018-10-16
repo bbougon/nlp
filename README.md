@@ -16,6 +16,7 @@ https://travis-ci.org/bbougon/nlp
 ***Run container***
 ```bash
 docker run -d --rm --name nlp-server --env-file ./.env.list --mount source=nlp-storage,target=/image-storage --publish 8090:8183 -w /usr/src/nlp/ --ip 192.168.100.20 --network=bridge-ou-sont-mes-affaires nlp-api java -jar nlp-docker-jar-with-dependencies.jar
+docker run -d --name nlp-server --env-file ./.env.list --mount source=nlp-storage,target=/image-storage --publish 8090:8183 -w /usr/src/nlp/ --ip 192.168.100.20 --network=bridge-ou-sont-mes-affaires nlp-api java -jar nlp-docker-jar-with-dependencies.jar
 ```
 
 ***Run in debug mode***
